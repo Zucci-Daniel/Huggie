@@ -71,7 +71,7 @@ const App: () => Node = () => {
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
           <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text>LET'S START CODING!!
+            Edit <Text style={styles.highlight}>App.js</Text>BRO U READY?
           </Section>
           <Section title="See Your Changes">
             <ReloadInstructions />
