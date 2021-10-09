@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
     backgroundColor:'#DD3A88'
     },
     svg:{
-        height:400,
-        width:400,
+        height:'40%',
+        width:'40%',
         justifyContent:'center',
     alignItems:'center',
     },
