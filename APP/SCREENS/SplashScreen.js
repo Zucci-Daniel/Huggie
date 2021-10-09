@@ -10,10 +10,10 @@ export default function SplashScreen() {
     return (
         <View style={styles.container}>
             <View style={styles.svg}>
-            <Cartoon />
+                <Cartoon />
             </View>
             <View style={styles.logo}>
-     <BrandLogo  />
+                <BrandLogo  />
             </View>
            
         </View>
