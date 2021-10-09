@@ -6,7 +6,6 @@ import colors from '../config/colors';
 import Icons from 'react-native-vector-icons/MaterialIcons';
 
 
-
 export default function MessageScreen({icon,title,image, message,person= require('../ASSETS/girl.jpg')}) {
     return (
         <View style={styles.container}>
