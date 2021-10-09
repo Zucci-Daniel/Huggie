@@ -7,7 +7,7 @@ export default function ProfileDisplay() {
     return (
         <View style={styles.ProfileDisplay}>
             <View  style={styles.Display}>
-    <Image source={require('../ASSETS/flatTommy.jpg')} style={styles.image} />
+    <Image source={require('../ASSETS/blueGirl.jpg')} style={styles.image} />
          <UserShowCaseInitials extraStyles={styles.extraStyles} />
             </View>
      
