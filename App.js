@@ -1,7 +1,6 @@
-import React from 'react';
-import { StyleSheet, Text, SafeAreaView, ScrollView, View } from 'react-native';
-import MessageScreen from './APP/SCREENS/MessageScreen';
-import LoadingScreen from './APP/SCREENS/LoadingScreen';
+import React from 'react'
+import { StyleSheet, Text, View } from 'react-native';
+import InsideApp from './APP/AppNavigation/InsideApp';
 import SplashScreen from './APP/SCREENS/SplashScreen';
 import RequestScreen from './APP/SCREENS/RequestScreen';
 import ChatScreen from './APP/SCREENS/ChatScreen';
@@ -30,55 +29,10 @@ import AppStatusBar from './APP/COMPONENTS/AppStatusBar';
 
 const BottomTab = createMaterialBottomTabNavigator();
 
-const container = (
-    <>
-      <AppStatusBar backgroundColor={colors.brandColor} />
-      <NavigationContainer>
-        <BottomTab.Navigator
-          activeColor={colors.brandColor}
-          barStyle={{ backgroundColor: colors.white, paddingBottom: '3%' }}
-
-        >
-          <BottomTab.Screen
-            name="Home"
-            component={HomeNav}
-            options={{
-              tabBarLabel: null,
-              tabBarColor: '#009387',
-              tabBarIcon: ({ color }) => (
-                <Icons name="heart" color={color} size={26} />
-              ),
-            }}
-          />
-          <BottomTab.Screen
-            name="Requests"
-            component={RequestNav}
-            options={{
-              tabBarLabel: null,
-              tabBarIcon: ({ color }) => (
-                <Icons name="message-reply" color={color} size={26} />
-              ),
-            }}
-          />
-          <BottomTab.Screen
-            name="Me"
-            component={ProfileNav}
-            options={{
-              tabBarLabel: null,
-              tabBarIcon: ({ color }) => (
-                <Icons name="account" color={color} size={26} />
-              ),
-            }}
-          />
-        </BottomTab.Navigator>
-      </NavigationContainer>
-    </>
-)
-
 const App = () => {
   return (
     <>
-		  <SignupScreen />
+		  <InsideApp />
     </>
   )
 }
