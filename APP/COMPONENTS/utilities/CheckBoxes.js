@@ -1,35 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import CheckItem from './checkItems';
 
-function CheckBoxes(props) {
+const gender = [
+    {name: 'Male', active : 2 },
+    {name: 'Female', active : 1 }
+]
+
+function CheckBoxes({sexChecker}) {
+    const [stateGender, setStateGender] = useState();
+    const [active, setActive] = useState(1)
+
+    useEffect(() => {
+        setStateGender(gender);
+        sex('Male')
+    },[]);
+
+    const sex = (sexVar) => {
+        sexChecker(sexVar)
+    }
+
+    const onPress = (num) => {
+       if(active === 1 && num === 1){
+           setActive(2);
+           sexChecker('Female')
+       }else if(active === 2 && num ===2){
+           setActive(1);
+           sexChecker('Male')
+       }
+    }
+
     return (
         <View style={styles.container}>
-            <View style={styles.checkbox}>
-                <View style={styles.circle}></View>
-                <Text style={{opacity: 0.7, marginLeft: 8}}>Male</Text>
-            </View>
-            <View style={styles.checkbox}>
-                <View style={[styles.circle, {backgroundColor: '#DE5295'}]}></View>
-                <Text style={{opacity: 0.7, marginLeft: 8}}>Female</Text>
-            </View>
+            { stateGender ? stateGender.map(item => (
+                <CheckItem key={item.name} name={item.name} activ={active === item.active ? true : false} onPress={() => onPress(item.active)} />
+            )) : null}
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        width: '100%',
-        flexDirection: 'row'
-    },
-    checkbox: {
-        width: 80,
-        flexDirection: 'row'
-    },
-    circle: {
-        height: 15,
-        width: 15,
-        borderRadius: 5,
-        backgroundColor: '#AFAFAF4A'
+        width: '90%',
+        flexDirection: 'row',
+        alignSelf: 'center'
     }
 })
 

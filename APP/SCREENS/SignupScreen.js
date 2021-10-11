@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TextInput, StatusBar, Dimensions, TouchableWithoutFeedback } from 'react-native';
+import { View, StyleSheet, Text, TextInput, StatusBar, Dimensions, TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native';
 
 import AbstractButtons from '../COMPONENTS/utilities/AbstractButtons';
 
@@ -13,6 +13,14 @@ const width = Dimensions.get('screen').width;
 
 function SignupScreen(props) {
     const [login, setLogin] = useState(false);
+    const [passMismatch, setPassMismatch] = useState(false);
+    const [passLength, setPassLength] = useState(true);
+
+    //FormData
+    const [username, setUsername] = useState();
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    const [sex, setSex] = useState('Male');
 
     const loginBtn = () => {
         if(!login){
@@ -20,28 +28,57 @@ function SignupScreen(props) {
         }else {
             setLogin(false)
         }
+    };
+
+    const submit = () => {
+        console.log(sex);
+    }
+
+    const passChecker = (text) => {
+        setPassword(text)
+        if(text.length > 6){
+            setPassLength(true)
+        }else{
+            setPassLength(false)
+        }
+    }
+
+    const passwordChecker = (text) => {
+        if(text === password){
+            setPassMismatch(false)
+        }else{
+            setPassMismatch(true)
+        }
+    }
+
+    const sexChecker = (gender) => {
+        setSex(gender)
     }
 
     let div = (
         <View style={styles.inputsContainer}>
-            <TextInput placeholder='Username' style={styles.input} />
-            <TextInput placeholder='Email' style={styles.input} />
+            <TextInput placeholder='Username' style={styles.input} placeholderTextColor={'#000'} onChangeText={(text) => setUsername(text)} />
+            <TextInput placeholder='Email' keyboardType='email-address' style={styles.input} placeholderTextColor={'#000'} onChangeText={(text) => setEmail(text)} />
             <View style={styles.passwordContainer}>
-                <View style={{width: '50%', alignItems: 'center'}}>
-                    <TextInput placeholder='Password' style={[styles.input, {width: '95%'}]} />
+                <View style={{width: '50%', alignItems: 'flex-start'}}>
+                    <TextInput placeholder='Password' style={[styles.input, {width: '95%'}]} secureTextEntry placeholderTextColor={'#000'} onChangeText={(text) => passChecker(text)} />
                 </View>
-                <View style={{width: '50%', alignItems: 'center'}}>
-                    <TextInput placeholder='Confirm Password' style={[styles.input, {width: '95%'}]} />
+                <View style={{width: '50%', alignItems: 'flex-end'}}>
+                    <TextInput placeholder='Confirm Password' style={[styles.input, {width: '95%'}]} secureTextEntry placeholderTextColor={'#000'} onChangeText={text => passwordChecker(text)} />
                 </View>
             </View>
-            <CheckBoxes />
+            {passMismatch ? <Text style={styles.mismatchPass}>Password field dosen't match</Text> : null }
+            {!passLength ? <Text style={styles.mismatchPass}>Password too short</Text> : null }
+            <CheckBoxes sexChecker={sexChecker} />
         </View>
     )
     if(login){
         div = (
             <View style={styles.inputsContainer}>
-                <TextInput placeholder='Email' style={styles.input} />
-                <TextInput placeholder='Password' style={styles.input} />
+                <KeyboardAvoidingView behavior='position'>
+                    <TextInput placeholder='Email' style={styles.input} placeholderTextColor={'#000'} />
+                    <TextInput placeholder='Password' style={styles.input} placeholderTextColor={'#000'} />
+                </KeyboardAvoidingView>
             </View>
         )
     }
@@ -70,9 +107,11 @@ function SignupScreen(props) {
                         <Text style={{fontWeight: '600'}}>{!login ? 'Login' : 'Sign up'} Instead</Text>
                     </View>
                 </TouchableWithoutFeedback>
-                <View style={[styles.box1, {backgroundColor: '#E51D7D'}]}>
-                    <Text style={{fontWeight: '700', color: '#fff'}}>I'm Done</Text>
-                </View>
+                <TouchableWithoutFeedback onPress={submit}>
+                    <View style={[styles.box1, {backgroundColor: '#E51D7D'}]}>
+                        <Text style={{fontWeight: '700', color: '#fff'}}>I'm Done</Text>
+                    </View>
+                </TouchableWithoutFeedback>
             </View>
         </View>
     );
@@ -97,14 +136,14 @@ const styles = StyleSheet.create({
         fontFamily: 'verdana',
         width: 160,
         marginTop: 20,
-        marginLeft: 20
+        marginLeft: '7%'
     },
     intro2: {
         color: '#fff',
         paddingTop: 10,
         fontSize: 15,
         letterSpacing: 1,
-        marginLeft: 20
+        marginLeft: '7%'
     },
     bottomTop: {
         width: '100%',
@@ -128,14 +167,14 @@ const styles = StyleSheet.create({
     },
     bottomTextHeader: {
         fontSize: 20,
-        paddingLeft: 20,
+        paddingLeft: '7%',
         paddingTop: 15,
         letterSpacing: 1,
         opacity: 0.9
     },
     inputsContainer: {
-        width: width - 40,
-        marginLeft: 20,
+        width: '85%',
+        alignSelf: 'center',
         marginTop: 12
     },
     input: {
@@ -144,7 +183,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#AFAFAF4A',
         borderRadius: 7,
         paddingLeft: 15,
-        marginBottom: 15
+        marginBottom: 15,
+        color: '#000',
     },
     passwordContainer: {
         width: '100%',
@@ -165,6 +205,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         fontWeight: '600'
+    },
+    mismatchPass: {
+        color: 'red',
+        marginBottom: 5
     }
 })
 

@@ -18,7 +18,7 @@ function DropDown({name, width, data, onPress}) {
 
 const styles = StyleSheet.create({
     container: {
-        height: 36,
+        height: 45,
         width: 150,
         borderWidth: 1,
         borderRadius: 10,

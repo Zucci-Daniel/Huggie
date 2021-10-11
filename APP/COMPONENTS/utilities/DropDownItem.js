@@ -20,7 +20,7 @@ function DropDownItem({name, onPress}) {
 
 const styles = StyleSheet.create({
     container: {
-        height: 40,
+        height: 50,
         width: '100%',
         marginBottom: 5,
         flexDirection: 'row',

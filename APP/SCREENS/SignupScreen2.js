@@ -65,8 +65,8 @@ function SignupScreen2(props) {
 
     const nameShotter = (name) => {
         const ArrName = name.split('');
-        if(ArrName.length > 19){
-            const NewName = ArrName.slice(0, 18);
+        if(ArrName.length > 17){
+            const NewName = ArrName.slice(0, 16);
             const finalName = NewName.join('') + '...';
             setUniv(finalName);
         }else{
@@ -75,12 +75,12 @@ function SignupScreen2(props) {
     }
 
     let div = (
-        <DropDown name={!univ ? `select a ${inst}` : univ } width={210} data={Universities} onPress={onPress} />
+        <DropDown name={!univ ? `select a ${inst}` : univ } width={'75%'} data={Universities} onPress={onPress} />
     )
     if(inst === U2){
-        div = <DropDown name={!univ ? `select a ${inst}` : univ } width={210} data={Polythecnic} onPress={onPress} />
+        div = <DropDown name={!univ ? `select a ${inst}` : univ } width={'75%'} data={Polythecnic} onPress={onPress} />
     }else if(inst === U3){
-        div = <DropDown name={!univ ? `select a ${inst}` : univ } width={210} data={College} onPress={onPress} />
+        div = <DropDown name={!univ ? `select a ${inst}` : univ } width={'75%'} data={College} onPress={onPress} />
     }
 
     return (
@@ -93,10 +93,10 @@ function SignupScreen2(props) {
             <View style={styles.bottomContainer}>
                 <Text style={styles.bottomTextHeader}>Tell Us A Bit About Yourself</Text>
                 <View style={styles.inputContainer}>
-                    <DropDown name={inst} width={150} data={institutions} onPress={onPress} />
+                    <DropDown name={inst} width={'55%'} data={institutions} onPress={onPress} />
                     {div}
-                    <TextInput placeholder='Department' style={styles.input} />
-                    <TextInput placeholder='Level' style={[styles.input, {width: 100}]} />
+                    <TextInput placeholder='Department' style={styles.input} placeholderTextColor={'#000'} />
+                    <TextInput placeholder='Level' style={[styles.input, {width: 100}]} placeholderTextColor={'#000'} />
                 </View>
             </View>
             {items ? <DropDownModal data={items} onPress={drop1} /> : null }   
@@ -129,21 +129,21 @@ const styles = StyleSheet.create({
         fontFamily: 'verdana',
         width: 160,
         marginTop: 20,
-        marginLeft: 20
+        marginLeft: '7%'
     },
     intro2: {
         color: '#fff',
         paddingTop: 10,
         fontSize: 15,
         letterSpacing: 1,
-        marginLeft: 20
+        marginLeft: '7%'
     },
     bottomContainer: {
         height: '75%',
     },
     bottomTextHeader: {
         fontSize: 20,
-        paddingLeft: 20,
+        paddingLeft: '7%',
         paddingTop: 15,
         letterSpacing: 1,
         opacity: 0.8
@@ -154,10 +154,10 @@ const styles = StyleSheet.create({
         paddingTop: 20
     },
     input: {
-        height: 40,
+        height: 45,
         width: 200,
         backgroundColor: '#f0f0f0',
-        marginLeft: 20,
+        marginLeft: '7%',
         borderRadius: 7,
         paddingLeft: 15,
         fontSize: 17,

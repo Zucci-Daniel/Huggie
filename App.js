@@ -4,6 +4,8 @@ import MessageScreen from './APP/SCREENS/MessageScreen';
 import LoadingScreen from './APP/SCREENS/LoadingScreen';
 import SplashScreen from './APP/SCREENS/SplashScreen';
 import RequestScreen from './APP/SCREENS/RequestScreen';
+import ChatScreen from './APP/SCREENS/ChatScreen';
+import ProfileScreen from './APP/SCREENS/ProfileScreen';
 
 //Auth screens
 import SignupScreen from './APP/SCREENS/SignupScreen';
@@ -28,14 +30,9 @@ import AppStatusBar from './APP/COMPONENTS/AppStatusBar';
 
 const BottomTab = createMaterialBottomTabNavigator();
 
-
-
-const App = () => {
-  return (
+const container = (
     <>
-		  <SignupScreen3 />
       <AppStatusBar backgroundColor={colors.brandColor} />
-
       <NavigationContainer>
         <BottomTab.Navigator
           activeColor={colors.brandColor}
@@ -61,7 +58,6 @@ const App = () => {
               tabBarIcon: ({ color }) => (
                 <Icons name="message-reply" color={color} size={26} />
               ),
-
             }}
           />
           <BottomTab.Screen
@@ -77,11 +73,13 @@ const App = () => {
         </BottomTab.Navigator>
       </NavigationContainer>
     </>
+)
+
+const App = () => {
+  return (
+    <>
+		  <SignupScreen />
+    </>
   )
 }
-
-const styles = StyleSheet.create({
-	
-});
-
 export default App;

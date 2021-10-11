@@ -8,10 +8,11 @@ const statusbarHeight = StatusBar.currentHeight;
 
 function SignupScreen3(props) {
     const [items, setItems] = useState([]);
+    const [search, setSearch] = useState([]);
 
     useEffect(() => {
-        console.log(items)
-    },[items])
+        console.log(search)
+    },[search])
 
     const itemAdder = (name) => {
         setItems(prevArr => [...prevArr, name])
@@ -24,6 +25,17 @@ function SignupScreen3(props) {
         setItems(item);
     }
 
+    const searchAdder = (name) => {
+        setSearch(prevArr => [...prevArr, name]);
+    }
+
+    const searchRemover = (name) => {
+        const idx = search.indexOf(name);
+        let item = search;
+        item.splice(idx, 1);
+        setSearch(item)
+    }
+
     return (
         <>
         <View>
@@ -34,6 +46,7 @@ function SignupScreen3(props) {
                 <Text style={styles.intro2}>Students Dating Platform</Text>
             </View>
             <View style={styles.bottomContainer}>
+                <View style={{marginTop: '4%'}}>
                 <Text style={styles.bottomTextHeader}>Your Kind Of Person...</Text>
                 <View style={styles.mainContainer}>
                     <View style={styles.row1}>
@@ -58,14 +71,13 @@ function SignupScreen3(props) {
                 </View>
                 <View style={styles.SearchSelector}>
                     <Text style={styles.searchText}>How would you like to conduct your search?</Text>
-                    <View style={styles.row2}>
-                        <PersonalityBoxes name='Department' width='50%' />
-                        <PersonalityBoxes name='Level' width='50%' />
+                    <View style={{alignItems: 'center'}}>
+                        <View style={styles.row2}>
+                            <PersonalityBoxes name='Department' width='50%' itemAdder={searchAdder} itemRemover={searchRemover} />
+                            <PersonalityBoxes name='Level' width='50%' itemAdder={searchAdder} itemRemover={searchRemover} />
+                        </View>
                     </View>
-                    <View style={styles.checkbox}>
-                        <View style={styles.circle}></View>
-                        <Text style={{opacity: 0.7, marginLeft: 8, fontWeight: '700'}}>Both</Text>
-                    </View>
+                </View>
                 </View>
             </View>
         </View>
@@ -82,13 +94,15 @@ function SignupScreen3(props) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        width: '100%'
+        width: '100%',
+        backgroundColor: '#fff',
     },
     topContainer: {
         width: '100%',
         backgroundColor: '#DE5295',
         paddingTop: statusbarHeight,
-        paddingBottom: 25
+        paddingBottom: 25,
+        height: '30%'
     },
     intro: {
         fontWeight: 'bold',
@@ -108,6 +122,8 @@ const styles = StyleSheet.create({
     },
     bottomContainer: {
         width: '100%',
+        backgroundColor: '#fff',
+        height: '70%'
     },
     bottomTextHeader: {
         fontSize: 20,
@@ -133,14 +149,14 @@ const styles = StyleSheet.create({
     searchText: {
         fontSize: 18,
         marginLeft: 20,
-        paddingTop: 5,
+        paddingTop: '5%',
         letterSpacing: 1,
         opacity: 0.8,
         width: '90%'
     },
     row2: {
         height: 40,
-        width: '100%',
+        width: '90%',
         flexDirection: 'row',
         marginTop: 13
     },

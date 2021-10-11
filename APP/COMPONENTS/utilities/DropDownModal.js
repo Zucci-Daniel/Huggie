@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
         width: '80%',
         backgroundColor: '#fff',
         borderRadius: 15,
-        paddingTop: 10,
-        paddingBottom: 10
+        paddingTop: 20,
+        paddingBottom: 25
     }
 })
 
