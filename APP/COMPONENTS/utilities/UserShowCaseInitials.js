@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius:50,
         borderBottomLeftRadius:50,
         position:'relative',
-        paddingLeft:40,
+        paddingLeft:'6%',
         
     },
     initialsPane:{

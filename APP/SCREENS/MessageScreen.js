@@ -1,10 +1,9 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, } from 'react-native';
 import EmptyLogoSvg from '../COMPONENTS/EmptyLogoSVG';
 import colors from '../config/colors';
 
 import Icons from 'react-native-vector-icons/MaterialIcons';
-
 
 export default function MessageScreen({icon,title,image, message,person= require('../ASSETS/girl.jpg')}) {
     return (
@@ -15,13 +14,9 @@ export default function MessageScreen({icon,title,image, message,person= require
                     <Text style={styles.title}>{title}</Text>
                 </View>
             </View>
-
-
-
             <View style={styles.profileImage}>
-           <EmptyLogoSvg profileImg={person} />
+                <EmptyLogoSvg profileImg={person} />
             </View>
-
             <View style={styles.message}>
                 <Text style={styles.messageTxt}>{message}</Text>
             </View>
