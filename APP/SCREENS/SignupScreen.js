@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, TextInput, StatusBar, Dimensions, TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native';
+import {connect} from 'react-redux';
+import * as signupActions from '../Redux/Actions/index';
 
 import AbstractButtons from '../COMPONENTS/utilities/AbstractButtons';
 
@@ -31,7 +33,13 @@ function SignupScreen(props) {
     };
 
     const submit = () => {
-        console.log(sex);
+        const data = {
+            username: username,
+            email: email,
+            password: password,
+            sex: sex
+        }
+        props.Signup(username)
     }
 
     const passChecker = (text) => {
@@ -87,7 +95,7 @@ function SignupScreen(props) {
         <View style={styles.container}>
             <StatusBar translucent backgroundColor={'transparent'} />
             <View style={styles.topContainer}>
-                <Text style={styles.intro}>{!login ? 'Welcome' : 'Login'} to Huggie</Text>
+                <Text style={styles.intro}>{!login ? 'Welcome' : 'Login'} to Huggie {props.name}</Text>
                 <Text style={styles.intro2}>Students Dating Platform</Text>
                 <View style={styles.bottomTop}>
                     <Text style={styles.signupText}>{!login ? 'Sign up' : 'Login'} using</Text>
@@ -116,6 +124,19 @@ function SignupScreen(props) {
         </View>
     );
 };
+
+const mapStateToProps = (state) => {
+    return{
+        name: state.name
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        // Signup: (data) => dispatch(signupActions.signup(data))
+        Signup: () => dispatch(signupActions.initSignup())
+    }
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -212,4 +233,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default SignupScreen;
+export default connect(mapStateToProps, mapDispatchToProps)(SignupScreen);

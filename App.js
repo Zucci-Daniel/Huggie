@@ -1,5 +1,12 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native';
+
+//redux imports
+import {createStore, applyMiddleware, compose} from 'redux';
+import {Provider} from 'react-redux';
+import thunk from 'redux-thunk';
+import reducer from './APP/Redux/Reducers/reducer';
+
 import InsideApp from './APP/AppNavigation/InsideApp';
 import SplashScreen from './APP/SCREENS/SplashScreen';
 import RequestScreen from './APP/SCREENS/RequestScreen';
@@ -27,12 +34,28 @@ import colors from './APP/config/colors';
 import { StatusBar } from 'react-native';
 import AppStatusBar from './APP/COMPONENTS/AppStatusBar';
 
+/////////////    redux settings     ///////////////////
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE || compose;
+
+const store = createStore(
+  reducer,
+  composeEnhancers(
+    applyMiddleware(thunk)
+  )
+)
+
+//////////////    redux settings     /////////////////
+
+
 const BottomTab = createMaterialBottomTabNavigator();
 
 const App = () => {
   return (
     <>
-		  <InsideApp />
+      <Provider store={store}>
+        <SignupScreen />
+      </Provider> 
     </>
   )
 }
