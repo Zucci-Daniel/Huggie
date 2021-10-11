@@ -1,27 +1,35 @@
-import React from 'react'
-import { StyleSheet, Text, View,ScrollView } from 'react-native'
-import AppIcon from '../COMPONENTS/utilities/AppIcon'
+
+import React from 'react';
+import MasonryList from "react-native-masonry-list";
+
+//...
+import MiniProfileDisplay from '../COMPONENTS/MiniProfileDisplay';
 
 export default function GalleryScreen() {
-    return (
-        <ScrollView>
-        <View style={styles.gallery}>
-           
-        </View>
-           <AppIcon extraStyle={styles.extraStyle} />
-        </ScrollView>
-    )
-}
+    const galleryImages = [
+        {
+            source: require("../ASSETS/boy2.jpg"),
+            width: 1080,
+            height: 1920
+        },
+        {
+            source: require("../ASSETS/boy1.jpg"),
+            width: 1080,
+            height: 1920
+        },
+        {
+            source: require("../ASSETS/jackson.jpg"),
+            width: 1080,
+            height: 1920
+        },
+    ]
 
-const styles = StyleSheet.create({
-    gallery:{
-        height:1000,
-        width:'100%',
-        backgroundColor:'red',
-        position:'relative',
-    },
-    extraStyle:{
-        position:'absolute',
-        right:0,
-    }
-})
+    return (
+        <MasonryList
+            columns={3}
+            images={galleryImages}
+
+        />
+
+    );
+}

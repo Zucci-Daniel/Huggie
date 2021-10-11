@@ -1,5 +1,6 @@
 import React from 'react'
-import { StyleSheet, Text, View,Image } from 'react-native';
+import { StyleSheet, Text, View,Image,StatusBar } from 'react-native';
+import AppStatusBar from '../COMPONENTS/AppStatusBar';
 
 import BrandLogo from '../COMPONENTS/BrandLogo';
 import Cartoon from '../COMPONENTS/Cartoon';
@@ -8,15 +9,18 @@ import Cartoon from '../COMPONENTS/Cartoon';
 
 export default function SplashScreen() {
     return (
+        <>
         <View style={styles.container}>
+        <StatusBar translucent backgroundColor={'transparent'} />
             <View style={styles.svg}>
-            <Cartoon />
+                <Cartoon />
             </View>
             <View style={styles.logo}>
-     <BrandLogo  />
+                <BrandLogo  />
             </View>
            
         </View>
+        </>
     )
 }
 

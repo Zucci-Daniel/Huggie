@@ -7,10 +7,9 @@ export default function ProfileDisplay() {
     return (
         <View style={styles.ProfileDisplay}>
             <View  style={styles.Display}>
-    <Image source={require('../ASSETS/blueGirl.jpg')} style={styles.image} />
+    <Image source={require('../ASSETS/black.jpg')} style={styles.image} />
          <UserShowCaseInitials extraStyles={styles.extraStyles} />
             </View>
-     
         </View>
     )
 }
@@ -26,7 +25,7 @@ const styles = StyleSheet.create({
     },
     Display:{
         width:'95%',
-        height:'90%',
+        height:'98%',
         borderRadius:20,
         overflow:'hidden'
     },
@@ -36,6 +35,6 @@ const styles = StyleSheet.create({
     },
     extraStyles:{
         position:'absolute',
-        bottom:50
+        bottom:'10%'
     }
 })

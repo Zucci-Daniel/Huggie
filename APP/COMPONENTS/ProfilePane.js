@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View ,TouchableOpacity} from 'react-native'
 import colors from '../config/colors'
 import BubbleImage from './utilities/BubbleImage'
 import Date from './utilities/Date'
@@ -7,8 +7,9 @@ import Details from './utilities/Details'
 import MessageCircle from './utilities/MessageCircle'
 import ProfileName from './utilities/ProfileName'
 
-export default function ProfilePane({ profilePicture, profileName, title, date, messages }) {
+export default function ProfilePane({ profilePicture, profileName, title, date, messages,onPress }) {
     return (
+        <TouchableOpacity  onPress={onPress}>
         <View style={styles.profilePane}>
             <View style={styles.firstPane}>
                 <View style={styles.profilePicture}>
@@ -25,6 +26,7 @@ export default function ProfilePane({ profilePicture, profileName, title, date, 
             </View>
 
         </View>
+        </TouchableOpacity>
     )
 }
 
