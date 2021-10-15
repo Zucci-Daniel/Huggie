@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import DropDownItem from './DropDownItem';
 
 function DropDownModal({data, onPress}) {
@@ -7,9 +7,6 @@ function DropDownModal({data, onPress}) {
     useEffect(() => {
         if(data){
             setItem(data);
-            console.log(data)
-        }else{
-            console.log(data)
         }
     },[]); 
 
@@ -17,9 +14,11 @@ function DropDownModal({data, onPress}) {
         <View style={styles.container}>
             {item ? 
                 <View style={styles.mainContainer}>
+                    <ScrollView>
                     {item.map(i => (
                         <DropDownItem key={i} name={i} onPress={() => onPress(i)} />
                     ))}
+                    </ScrollView>
                 </View>
             : null}
         </View>
@@ -41,7 +40,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         borderRadius: 15,
         paddingTop: 20,
-        paddingBottom: 25
+        paddingBottom: 25,
+        maxHeight: '80%'
     }
 })
 

@@ -1,52 +1,58 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, StatusBar, TextInput } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, StatusBar, TextInput, TouchableWithoutFeedback } from 'react-native';
+import axios from 'axios';
+
+import {connect} from 'react-redux';
+import * as actions from '../Redux/Actions/index';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import DropDown from '../COMPONENTS/utilities/DropDown';
 import DropDownModal from '../COMPONENTS/utilities/DropDownModal';
+import LoadingScreen from '../COMPONENTS/loadingScreen';
+
+import uni from '../ASSETS/uni.json';
+
 
 const statusbarHeight = StatusBar.currentHeight;
 const U1 = 'University';
 const U2 = 'Polythecnic';
 const U3 = 'College';
 // Dropdown items
-const institutions = {
-    unis: [
-        'University',
-        'Polythecnic',
-        'College',
-    ]
-}
+const institutions = [
+    'University',
+    'Polythecnic',
+    'College',
+]
 
-const Universities = {
-    unis: [
-        'Imo state University',
-        'University of Lagos',
-        'University of Abuja',
-        'Federal University of Technology  Owerri'
-    ]
-}
-const Polythecnic = {
-    unis: [
-        'Federal ploythecnic Nekede',
-        'Imo State Polythecnic'
-    ]
-}
-const College = {
-    unis: [
-        'Alvan Ikoku college of Education',
-        'Havard College of Science, Owerri',
-        'Kingdom Diplomat College of Medicine'
-    ]
-}
+function SignupScreen2({changeScreen}) {
+    const [loading, setLoading] = useState(false);
 
-function SignupScreen2(props) {
+    useEffect(() => {
+        unisSetter()
+    },[]);
+
+    const [Universities, setUniversities] = useState();
 
     const [items, setItems] = useState();
     const [inst, setInst] = useState('University');
     const [univ, setUniv] = useState();
+    const [fullUniv, setFullUniv] = useState();
+    const [dept, setDept] = useState();
+    const [lev, setLev] = useState();
+
+    const unisSetter = () => {
+        const arr = [];
+        if(uni){
+            Object.keys(uni).map((keyName, i) => {
+                arr.push(keyName)
+            });
+            setUniversities(arr)
+        }
+        
+    }
 
     const onPress = (data) => {
-        console.log(data);
-        setItems(data)
+        setItems(data);
     }
 
     const drop1 = (name) => {
@@ -69,18 +75,71 @@ function SignupScreen2(props) {
             const NewName = ArrName.slice(0, 16);
             const finalName = NewName.join('') + '...';
             setUniv(finalName);
+            setFullUniv(name);
         }else{
             setUniv(name)
         }
+    }
+
+    const submit = async () => {
+        const sex = await AsyncStorage.getItem('sex');
+        const id = await AsyncStorage.getItem('@id');
+        const token = await AsyncStorage.getItem('authToken')
+
+        const description = 'I am a ' + lev + 'lv student' + ' at ' + fullUniv
+
+        const data = {
+            token: token,
+            id: id,
+            sex: sex,
+            institution: fullUniv,
+            department: dept,
+            level: lev,
+            description: description
+        }
+        // console.log(data);
+        postData(data);
+        // AsyncStorage.clear();
+    }
+
+    const postData = (data) => {
+        const formdata = new FormData();
+        let sex = data.sex;
+        const newSex = sex.toLowerCase();
+        formdata.append('sex', newSex);
+        formdata.append('institution', data.institution);
+        formdata.append('department', data.department);
+        formdata.append('level', data.level + 'L');
+        setLoading(true);
+
+        axios.put('https://huggie.herokuapp.com/api/profiles/'+data.id+'/', formdata, {
+            headers: {
+                'Authorization': 'JWT ' + data.token,
+                redirect: 'follow'
+            }
+        })
+        .then(r => {
+            console.log(r.data);
+            setLoading(false);
+            changeScreen(2, data)
+        })
+        .catch(e => {
+            if(e.response.data){
+                alert(e.response.data.detail);
+            }else{
+                alert(e)
+            }
+            setLoading(false);
+        })
     }
 
     let div = (
         <DropDown name={!univ ? `select a ${inst}` : univ } width={'75%'} data={Universities} onPress={onPress} />
     )
     if(inst === U2){
-        div = <DropDown name={!univ ? `select a ${inst}` : univ } width={'75%'} data={Polythecnic} onPress={onPress} />
+        div = <DropDown name={!univ ? `select a ${inst}` : univ } width={'75%'} data={Universities} onPress={onPress} />
     }else if(inst === U3){
-        div = <DropDown name={!univ ? `select a ${inst}` : univ } width={'75%'} data={College} onPress={onPress} />
+        div = <DropDown name={!univ ? `select a ${inst}` : univ } width={'75%'} data={Universities} onPress={onPress} />
     }
 
     return (
@@ -95,17 +154,22 @@ function SignupScreen2(props) {
                 <View style={styles.inputContainer}>
                     <DropDown name={inst} width={'55%'} data={institutions} onPress={onPress} />
                     {div}
-                    <TextInput placeholder='Department' style={styles.input} placeholderTextColor={'#000'} />
-                    <TextInput placeholder='Level' style={[styles.input, {width: 100}]} placeholderTextColor={'#000'} />
+                    <TextInput placeholder='Department' style={styles.input} placeholderTextColor={'#000'} onChangeText={(text) => setDept(text) } />
+                    <TextInput placeholder='Level' keyboardType='numeric' style={[styles.input, {width: 100}]} placeholderTextColor={'#000'} onChangeText={(text) => setLev(text)} />
                 </View>
             </View>
             {items ? <DropDownModal data={items} onPress={drop1} /> : null }   
             <View style={styles.bottomNav}>
                 <View style={[styles.box1, {backgroundColor:'#fff'}]} />
-                <View style={[styles.box1, {backgroundColor: '#E51D7D'}]}>
-                    <Text style={{fontWeight: '700', color: '#fff'}}>I'm Done</Text>
-                </View>
-            </View> 
+                <TouchableWithoutFeedback onPress={submit}>
+                    <View style={[styles.box1, {backgroundColor: '#E51D7D'}]}>
+                        <Text style={{fontWeight: '700', color: '#fff'}}>I'm Done</Text>
+                    </View>
+                </TouchableWithoutFeedback>
+            </View>
+            {loading ?
+                <LoadingScreen />
+            : null}
         </View>
     );
 };

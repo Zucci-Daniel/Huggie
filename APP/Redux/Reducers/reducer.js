@@ -1,14 +1,28 @@
 import * as actionTypes from '../Actions/actionTypes';
 
 const initialSatate = {
-    name: 'Null'
+    token: null,
+
+    loading: false,
+    loading2: false,
+    
+    is_signup: null,
+    nextScreen: 'hello world',
+    numbe: 1
 }
 
 const reducer = (state = initialSatate, actions) => {
     switch (actions.type) {
-        case actionTypes.SIGNUP: return{name: actions.value}
+        case actionTypes.LOADING: 
+            return{loading: actions.value};
+        case actionTypes.IS_SIGNUP: 
+            return{is_signup: actions.value};
+        case actionTypes.CLEARAUTHSTATE: 
+            return{is_signup: null};
+        case actionTypes.LOADING2: 
+            return{loading2: actions.value}
     }
-    return state
+    return state;
 }
 
 export default reducer;

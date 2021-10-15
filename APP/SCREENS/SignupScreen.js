@@ -9,6 +9,7 @@ import AbstractButtons from '../COMPONENTS/utilities/AbstractButtons';
 import fbIcon from '../ASSETS/fb.png';
 import GoogleIcon from '../ASSETS/search.png'
 import CheckBoxes from '../COMPONENTS/utilities/CheckBoxes';
+import LoadingScreen from '../COMPONENTS/loadingScreen';
 
 const statusbarHeight = StatusBar.currentHeight;
 const width = Dimensions.get('screen').width;
@@ -23,6 +24,10 @@ function SignupScreen(props) {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [sex, setSex] = useState('Male');
+
+    //Login field
+    const [logUsername, setLoginUsername] = useState();
+    const [logPassword, setLogPassword] = useState();
 
     const loginBtn = () => {
         if(!login){
@@ -39,7 +44,15 @@ function SignupScreen(props) {
             password: password,
             sex: sex
         }
-        props.Signup(username)
+        const data2 = {
+            username: logUsername,
+            password: logPassword
+        }
+        if(!login){
+            props.Signup(data,1);
+        }else{
+            props.Signin(data2)
+        }
     }
 
     const passChecker = (text) => {
@@ -84,8 +97,8 @@ function SignupScreen(props) {
         div = (
             <View style={styles.inputsContainer}>
                 <KeyboardAvoidingView behavior='position'>
-                    <TextInput placeholder='Email' style={styles.input} placeholderTextColor={'#000'} />
-                    <TextInput placeholder='Password' style={styles.input} placeholderTextColor={'#000'} />
+                    <TextInput placeholder='Username' style={styles.input} placeholderTextColor={'#000'} onChangeText={text => setLoginUsername(text)} />
+                    <TextInput placeholder='Password' style={styles.input} secureTextEntry placeholderTextColor={'#000'} onChangeText={text => setLogPassword(text)} />
                 </KeyboardAvoidingView>
             </View>
         )
@@ -95,7 +108,7 @@ function SignupScreen(props) {
         <View style={styles.container}>
             <StatusBar translucent backgroundColor={'transparent'} />
             <View style={styles.topContainer}>
-                <Text style={styles.intro}>{!login ? 'Welcome' : 'Login'} to Huggie {props.name}</Text>
+                <Text style={styles.intro}>{!login ? 'Welcome' : 'Login'} to Huggie {props.is_signup}</Text>
                 <Text style={styles.intro2}>Students Dating Platform</Text>
                 <View style={styles.bottomTop}>
                     <Text style={styles.signupText}>{!login ? 'Sign up' : 'Login'} using</Text>
@@ -121,20 +134,26 @@ function SignupScreen(props) {
                     </View>
                 </TouchableWithoutFeedback>
             </View>
+            {props.loading ? 
+                <LoadingScreen />
+            : null}
         </View>
     );
 };
 
 const mapStateToProps = (state) => {
     return{
-        name: state.name
+        token: state.token,
+        loading: state.loading,
+        is_signup: state.is_signup
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return{
         // Signup: (data) => dispatch(signupActions.signup(data))
-        Signup: () => dispatch(signupActions.initSignup())
+        Signup: (data, type) => dispatch(signupActions.Auth(data, type)),
+        Signin: (data) => dispatch(signupActions.login(data))
     }
 }
 
@@ -184,7 +203,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     bottomTextHeader: {
         fontSize: 20,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
 import colors from '../../config/colors'
 import Details from './Details'
 import ProfileName from './ProfileName'
@@ -12,7 +12,10 @@ export default function UserShowCaseInitials({extraStyles}) {
            
         <View style={styles.UserShowCaseDetails}>
             <View style={styles.initialsPane}>
-           <ProfileName extraStyles={styles.userName} username="Nikel Jackson" />
+            <TouchableWithoutFeedback>
+                <ProfileName extraStyles={styles.userName} username="Nikel Jackson" />
+            </TouchableWithoutFeedback>
+           
            <VerifiedIcon />
             </View>
             <Details extraStyles={styles.details} department={'Computer Sci'} level={400}/>

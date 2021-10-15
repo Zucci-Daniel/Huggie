@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native';
+import AsyncStorage  from '@react-native-async-storage/async-storage';
 
 //redux imports
 import {createStore, applyMiddleware, compose} from 'redux';
@@ -18,21 +19,13 @@ import SignupScreen from './APP/SCREENS/SignupScreen';
 import SignupScreen2 from './APP/SCREENS/SignupScreen2';
 import SignupScreen3 from './APP/SCREENS/SignupScreen3';
 
-import HomeNav from './APP/AppNavigation/HomeNav';
-import RequestNav from './APP/AppNavigation/RequestsNav';
-
-//icon
-import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
-
-//Navigation
-import { NavigationContainer } from '@react-navigation/native';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 //imports
 import ProfileNav from './APP/AppNavigation/ProfileNav';
 import colors from './APP/config/colors';
 import { StatusBar } from 'react-native';
 import AppStatusBar from './APP/COMPONENTS/AppStatusBar';
+// import LogoutBtn from './APP/COMPONENTS/utilities/LogoutBtn';
+import MainScreen from './APP/SCREENS/MainScreen';
 
 /////////////    redux settings     ///////////////////
 
@@ -44,19 +37,17 @@ const store = createStore(
     applyMiddleware(thunk)
   )
 )
-
 //////////////    redux settings     /////////////////
 
-
-const BottomTab = createMaterialBottomTabNavigator();
-
 const App = () => {
+
   return (
     <>
       <Provider store={store}>
-        <SignupScreen />
+        <MainScreen />
       </Provider> 
     </>
   )
-}
+};
+
 export default App;
