@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import colors from '../../config/colors'
+import { scale,ScaledSheet } from 'react-native-size-matters';
 
 export default function Details({extraStyles,department,level}) {
     return (
@@ -11,10 +12,10 @@ export default function Details({extraStyles,department,level}) {
     )
 }
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
     details: {
-        fontSize: 10,
-        fontWeight: '500',
+        fontSize: '8@s',
+        fontWeight: '400',
         color: colors.details
     },
     fientLine: {

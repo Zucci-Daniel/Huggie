@@ -1,67 +1,80 @@
 import React from 'react'
-import { StyleSheet, Text, View ,TouchableOpacity} from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import colors from '../config/colors'
 import BubbleImage from './utilities/BubbleImage'
 import Date from './utilities/Date'
 import Details from './utilities/Details'
 import MessageCircle from './utilities/MessageCircle'
+import RedLight from './utilities/RedLight'
 import ProfileName from './utilities/ProfileName'
+import { scale, ScaledSheet } from 'react-native-size-matters';
 
-export default function ProfilePane({ profilePicture, profileName, title, date, messages,onPress }) {
+export default function ProfilePane({ profilePicture, profileName, title, date, messages, onPress,lightColor,department,level }) {
     return (
-        <TouchableOpacity  onPress={onPress}>
-        <View style={styles.profilePane}>
-            <View style={styles.firstPane}>
-                <View style={styles.profilePicture}>
-                    <BubbleImage />
+        <TouchableOpacity onPress={onPress}>
+            <View style={styles.profilePane}>
+                <View style={styles.firstPane}>
+                    <View style={styles.profilePicture}>
+                        <BubbleImage picture={profilePicture} />
+                        <RedLight extraStyle={[styles.extraStyle,{backgroundColor:lightColor}]} />
+                    </View>
+                    <View style={styles.initials}>
+                        <ProfileName username={profileName
+                        } />
+                        {!messages?<Details department={department} level={level} />:<Text style={styles.messages}>{messages}</Text>}
+                    </View>
                 </View>
-                <View style={styles.initials}>
-                    <ProfileName />
-                    <Details />
+                <View style={styles.secondPane}>
+                    <Date date={date}/>
+                   
                 </View>
             </View>
-            <View style={styles.secondPane}>
-                <Date />
-                <MessageCircle />
-            </View>
-
-        </View>
         </TouchableOpacity>
     )
 }
-
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
     profilePane: {
-        height: 85,
         backgroundColor: colors.white,
         flexDirection: 'row',
-        paddingLeft:10,
-        margin:0
+        margin: '2@s',
+        marginHorizontal: '5@s',
     },
     firstPane: {
         width: '85%',
         flexDirection: 'row'
     },
     profilePicture: {
-        width: '20%',
+        padding: '1@s',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        position:'relative'
     },
     initials: {
         backgroundColor: colors.white,
-        width: '80%',
+        width: '70%',
         alignItems: 'flex-start',
         justifyContent: 'center',
-        paddingHorizontal: 5
+        paddingHorizontal: '1@s'
 
     },
     secondPane: {
         width: '15%',
-        alignItems: 'center',
+        alignItems: 'flex-end',
         justifyContent: 'center',
-
+        paddingRight: '3@s'
     },
 
-
+    extraStyle:{
+        height:scale(15),
+        width: scale(15),
+        position:'absolute',
+        top:0,
+        right:scale(5)
+    },
+    messages:{
+        color:colors.dark,
+        fontSize:13,
+        fontWeight:'bold'
+    }
 
 })
