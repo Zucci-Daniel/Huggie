@@ -5,5 +5,6 @@ export default{
     tabBarLabelStyle:{color:colors.white},
    tabBarIndicatorStyle:{
      backgroundColor:colors.white
-   }
+   },
+  //  swipeEnabled :false
 };

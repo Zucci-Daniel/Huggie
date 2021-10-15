@@ -2,19 +2,21 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import colors from '../../config/colors'
+import { scale, ScaledSheet } from 'react-native-size-matters';
 
-export default function Date() {
+export default function Date({date}) {
     return (
-        <Text style={styles.date}>Tue</Text>
+        <Text style={styles.date}>{date}</Text>
     )
 }
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
     date: {
-        fontSize: 10,
+        fontSize: scale(7),
         fontWeight: '500',
         color: colors.date,
-        marginBottom: 10
+        marginBottom: 10,
+        textTransform:'lowercase'
 
     },
 })

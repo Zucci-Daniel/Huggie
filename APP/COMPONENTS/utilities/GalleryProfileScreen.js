@@ -1,39 +1,50 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View, ScrollView } from 'react-native';
+import { Image, StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
 import colors from '../../config/colors';
 import AppIcon from './AppIcon';
+import PersonalityBoxes from './PersonalityBoxes';
 import UserShowCaseInitials from './UserShowCaseInitials';
+import { scale,ScaledSheet } from 'react-native-size-matters';
 
 
 
 export default function GalleryProfilePictureScreen({ picture }) {
     return (
-        <ScrollView style={styles.ScrollView}>
+        <ScrollView>
             <View style={styles.GalleryProfilePicture}>
                 <View style={styles.picture}>
-                    <Image source={require('../../ASSETS/jackson.jpg')} style={styles.image} />
-                    <AppIcon name="camera" size={100} extraStyle={styles.cameraIcon} />
+                    <Image source={require('../../ASSETS/jackson.jpg')} style={styles.image} resizeMode="cover" />
+                    <AppIcon extraStyle={styles.cameraIcon} />
                 </View>
                 <UserShowCaseInitials />
+                <View style={styles.PersonalityBoxesWrapper}>
+                    <PersonalityBoxes />
+                    <PersonalityBoxes />
+                    <PersonalityBoxes />
+                    <PersonalityBoxes />
+                </View>
             </View>
+
+
+
         </ScrollView>
     )
 }
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
     GalleryProfilePicture: {
         width: '100%',
         height: 2000,
         backgroundColor: 'white',
         alignItems: 'center',
         justifyContent: 'flex-start',
-        padding: 10
+        padding: scale(10)
     },
     picture: {
         width: '95%',
-        height: 550,
+        height: Dimensions.get('window').height / 2,
         backgroundColor: colors.white,
-        borderRadius: 20,
+        borderRadius: scale(20),
         overflow: 'hidden',
         position: 'relative'
     },
@@ -44,6 +55,13 @@ const styles = StyleSheet.create({
     cameraIcon: {
         position: 'absolute',
         bottom: 0,
-        color: colors.brandColor
+        color: colors.brandColor,
+        left: scale(20),
+        bottom: scale(20),
+    },
+    PersonalityBoxesWrapper: {
+        width: '90%',
+        flex: 1,
+        flexDirection: 'row'
     }
 })

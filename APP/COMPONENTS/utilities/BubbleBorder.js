@@ -14,8 +14,8 @@ export default function BubbleBorder({children}) {
 
 const styles = StyleSheet.create({
     border1:{
-        height:70,
-        width:70, 
+        height:55,
+        width:55, 
         borderRadius:100,
         borderColor:colors.pendingFaded,
         borderWidth:3,
@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
     },
     border2:{
         backgroundColor:'white',
-        height:60,
-        width:60,
+        height:45,
+        width:45,
         borderRadius:100,
         borderColor:colors.pending,
         borderWidth:3,

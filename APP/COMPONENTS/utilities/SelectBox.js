@@ -2,27 +2,25 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import colors from '../../config/colors'
 
-export default function SelectBox() {
+export default function SelectBox({ likes }) {
     return (
         <View style={styles.SelectBox}>
-            <Text style={styles.text}>Sexy</Text>
+            <View style={{ alignSelf: 'center', padding: '5%' }} >
+                <Text style={styles.text}>{likes}</Text>
+            </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    SelectBox:{
-        height:30,
-        width:100,
-        backgroundColor:colors.selectionPane,
-        paddingHorizontal:5,
-        borderRadius:15,
-        justifyContent:'center',
-        alignItems:'center',
-        marginBottom:5,
-        marginRight:5
+    SelectBox: {
+        backgroundColor: colors.selectionPane,
+        paddingHorizontal: '2%',
+        borderRadius: 15,
+        marginBottom: '2%',
+        marginRight: '1%'
     },
-    text:{
-        color:colors.white
+    text: {
+        color: colors.white
     }
 })
