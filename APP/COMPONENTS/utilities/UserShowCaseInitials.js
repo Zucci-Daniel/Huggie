@@ -1,13 +1,20 @@
 import React from 'react'
+<<<<<<< HEAD
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native'
+=======
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+>>>>>>> a387852e05888ff6a6877144d3ce2dafea14fddf
 import colors from '../../config/colors'
 import Details from './Details'
 import ProfileName from './ProfileName'
 import SelectBox from './SelectBox'
 import VerifiedIcon from './VerifiedIcon'
+import { scale,ScaledSheet } from 'react-native-size-matters';
 
-export default function UserShowCaseInitials({extraStyles}) {
+
+export default function UserShowCaseInitials({ extraStyles, username, dept, level, children,onPress }) {
     return (
+<<<<<<< HEAD
         <View style={[styles.UserShowCaseInitials,extraStyles]}>
            
         <View style={styles.UserShowCaseDetails}>
@@ -19,57 +26,63 @@ export default function UserShowCaseInitials({extraStyles}) {
            <VerifiedIcon />
             </View>
             <Details extraStyles={styles.details} department={'Computer Sci'} level={400}/>
+=======
+        <View style={[styles.UserShowCaseInitials, extraStyles]} onPress={onPress}>
+            <View style={styles.UserShowCaseDetails}>
+                <View style={styles.initialsPane}>
+                    <ProfileName extraStyles={styles.userName} username={username} />
+                    <VerifiedIcon />
+                </View>
+                <Details extraStyles={styles.details} department={dept} level={level} />
+>>>>>>> a387852e05888ff6a6877144d3ce2dafea14fddf
 
-            <View style={styles.selectionPane}>
+                <View style={styles.selectionPane}>
 
-<SelectBox />
-<SelectBox />
-<SelectBox />
-<SelectBox />
+                    {children}
+                </View>
             </View>
-        </View>
 
         </View>
     )
 }
 
-const styles = StyleSheet.create({
-    UserShowCaseInitials:{
-        height:250,
-        width:'100%',
-        flexDirection:'row',
-        alignItems:'flex-end',
-        justifyContent:'flex-end',
-        paddingVertical:10
+const styles = ScaledSheet.create({
+    UserShowCaseInitials: {
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'flex-end',
+        justifyContent: 'flex-end',
+        paddingVertical: scale(2),
+
     },
-    UserShowCaseDetails:{
-        height:200,
-        width:'90%',
-        backgroundColor:colors.white,
-        borderTopLeftRadius:50,
-        borderBottomLeftRadius:50,
-        position:'relative',
-        paddingLeft:'6%',
-        
+    UserShowCaseDetails: {
+        padding: scale(15),
+        width: '90%',
+        backgroundColor: 'rgba(249, 249, 249, 0.79)',
+        borderTopLeftRadius: scale(30),
+        borderBottomLeftRadius: scale(30),
+        position: 'relative',
+        paddingLeft: scale(16),
+
     },
-    initialsPane:{
-        flexDirection:'row',
-        justifyContent:'flex-start',
-        alignItems:'center',
-        marginTop:20
+    initialsPane: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        // marginTop:'1%'
     },
-    userName:{
-        color:colors.dark,
-        marginRight:5,
-        fontSize:20
+    userName: {
+        color: colors.dark,
+        marginRight: 5,
+        fontSize: '14@s'
     },
-    details:{
-        fontSize:13,
-        color:colors.fadedDark
+    details: {
+        fontSize: '10@s',
+        color: colors.fadedDark
     },
-    selectionPane:{
-        marginTop:20,
-        flexWrap:'wrap',
-        flexDirection:'row',
+    selectionPane: {
+        marginTop: '5@s',
+        flexWrap: 'wrap',
+        flexDirection: 'row',
     }
 })

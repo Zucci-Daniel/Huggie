@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import SignupScreen2 from '../SCREENS/SignupScreen2';
 import SignupScreen3 from '../SCREENS/SignupScreen3'
 import LogoutBtn from './utilities/LogoutBtn';
+import InsideApp from '../AppNavigation/InsideApp';
 
 function ContainerScreen() {
     const [screen, setScreen] = useState(1);
@@ -39,7 +40,7 @@ function ContainerScreen() {
 
     return (
         <>
-            {screen ? div: <LogoutBtn/>}
+            {screen ? div: <InsideApp/>}
         </>
     );
 }

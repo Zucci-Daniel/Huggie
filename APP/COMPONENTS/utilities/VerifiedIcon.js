@@ -7,5 +7,3 @@ export default function VerifiedIcon() {
       <Verified />
     )
 }
-
-const styles = StyleSheet.create({})

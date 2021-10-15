@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import colors from '../../config/colors'
+import { scale,ScaledSheet } from 'react-native-size-matters';
 
 export default function RecievedMessageBox() {
     return (
@@ -12,20 +13,20 @@ export default function RecievedMessageBox() {
     )
 }
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
     recievedMessageWrapper:{
         backgroundColor:'transparent',
         width:'100%',
         flexDirection:'row',
         justifyContent:'flex-start',
-        paddingVertical:10,
-        paddingRight:2
+        paddingVertical:scale(10),
+        paddingRight:scale(2)
     },
     recievedMessage:{
         backgroundColor:colors.recievedMessageBg,
-        padding:15,
-        borderRadius:10,
-        fontSize:16
+        padding:scale(15),
+        borderRadius:scale(10),
+        fontSize:scale(16)
     },
     messageText:{
         color:colors.white

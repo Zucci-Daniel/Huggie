@@ -14,15 +14,17 @@ export default function MessageCircle() {
 const styles = StyleSheet.create({
     messagesCircle: {
         backgroundColor: colors.brandColor,
-        height: 25,
-        width: 25,
+        // padding:5,
         alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 100,
+        justifyContent: 'flex-end',
+        borderRadius: 150,
+        height:15,
+        width:15
     },
     messageNumber: {
         color: colors.white,
-        fontSize: 10,
-        fontWeight: 'bold'
+        fontSize: 11,
+        fontWeight: 'bold',
+        // padding:5
     }
 })
