@@ -78,11 +78,11 @@ function SignupScreen(props) {
 
     let div = (
         <View style={styles.inputsContainer}>
-            <TextInput placeholder='Username' style={styles.input} placeholderTextColor={'#000'} onChangeText={(text) => setUsername(text)} />
+            <TextInput placeholder='Username' style={styles.input} value={username} placeholderTextColor={'#000'} onChangeText={(text) => setUsername(text)} />
             <TextInput placeholder='Email' keyboardType='email-address' style={styles.input} placeholderTextColor={'#000'} onChangeText={(text) => setEmail(text)} />
             <View style={styles.passwordContainer}>
                 <View style={{width: '50%', alignItems: 'flex-start'}}>
-                    <TextInput placeholder='Password' style={[styles.input, {width: '95%'}]} secureTextEntry placeholderTextColor={'#000'} onChangeText={(text) => passChecker(text)} />
+                    <TextInput placeholder='Password' value={password} style={[styles.input, {width: '95%'}]} secureTextEntry placeholderTextColor={'#000'} onChangeText={(text) => passChecker(text)} />
                 </View>
                 <View style={{width: '50%', alignItems: 'flex-end'}}>
                     <TextInput placeholder='Confirm Password' style={[styles.input, {width: '95%'}]} secureTextEntry placeholderTextColor={'#000'} onChangeText={text => passwordChecker(text)} />
@@ -97,8 +97,8 @@ function SignupScreen(props) {
         div = (
             <View style={styles.inputsContainer}>
                 <KeyboardAvoidingView behavior='position'>
-                    <TextInput placeholder='Username' style={styles.input} placeholderTextColor={'#000'} onChangeText={text => setLoginUsername(text)} />
-                    <TextInput placeholder='Password' style={styles.input} secureTextEntry placeholderTextColor={'#000'} onChangeText={text => setLogPassword(text)} />
+                    <TextInput placeholder='Username' style={styles.input} value={username} placeholderTextColor={'#000'} onChangeText={text => setLoginUsername(text)} />
+                    <TextInput placeholder='Password' style={styles.input} value={password} secureTextEntry placeholderTextColor={'#000'} onChangeText={text => setLogPassword(text)} />
                 </KeyboardAvoidingView>
             </View>
         )
